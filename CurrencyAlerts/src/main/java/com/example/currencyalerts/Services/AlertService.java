@@ -35,14 +35,9 @@ public class AlertService {
     public Alert addAlert(int userId, int currencyId, double targetPrice) throws UserNotFoundException, CurrencyNotFoundException, CurrencyIsDisabledException {
         Currency currency = currencyService.findCurrencyById(currencyId);
         if (currency.isEnabled()) {
-            Alert alert = new Alert();
-            alert.setCreatedAt(LocalDateTime.now());
-            alert.setStatus(NEW);
-            alert.setTargetPrice(targetPrice);
-            currency.getAlerts().add(alert);
-            alert.setCurrency(currency);
             User user = userService.findUserById(userId);
-            alert.setUser(user);
+            Alert alert = new Alert(user, currency, targetPrice, NEW, LocalDateTime.now());
+            currency.getAlerts().add(alert);
             user.getAlerts().add(alert);
             return repository.save(alert);
         } else {

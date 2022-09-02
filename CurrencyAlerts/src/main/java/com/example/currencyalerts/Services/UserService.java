@@ -36,7 +36,6 @@ public class UserService {
         repository.deleteById(id);
     }
 
-    /* TODO: refactor after deciding on whether we should create a new user post updating a non existent user */
     public User updateUser(int id, User user){
         return repository.findById(id)
                 .map(newUser -> {

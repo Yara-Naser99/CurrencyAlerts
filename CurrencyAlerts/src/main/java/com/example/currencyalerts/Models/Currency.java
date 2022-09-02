@@ -3,12 +3,11 @@ package com.example.currencyalerts.Models;
 import lombok.*;
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+@NoArgsConstructor
 @Getter
 @Setter
 @Entity
@@ -36,6 +35,14 @@ public class Currency implements Serializable {
 
     @OneToMany(mappedBy = "currency", cascade = CascadeType.ALL)
     private Set<Alert> alerts = new HashSet<>();
+
+    public Currency(String symbol, String name, double currentPrice, boolean enabled, LocalDateTime createdTime) {
+        this.symbol = symbol;
+        this.name = name;
+        this.currentPrice = currentPrice;
+        this.enabled = enabled;
+        this.createdTime = createdTime;
+    }
 
     @Override
     public String toString() {

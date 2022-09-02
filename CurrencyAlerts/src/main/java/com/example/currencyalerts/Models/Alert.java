@@ -5,6 +5,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+@NoArgsConstructor
 @Getter
 @Setter
 @Entity
@@ -45,4 +46,12 @@ public class Alert implements Serializable {
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
+
+    public Alert(User user, Currency currency, double targetPrice, Status status, LocalDateTime createdAt) {
+        this.user = user;
+        this.currency = currency;
+        this.targetPrice = targetPrice;
+        this.status = status;
+        this.createdAt = createdAt;
+    }
 }
