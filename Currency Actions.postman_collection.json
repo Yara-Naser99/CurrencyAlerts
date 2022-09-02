@@ -1,0 +1,163 @@
+{
+	"info": {
+		"_postman_id": "cc939a73-a77d-467e-91b3-e4d328703e1b",
+		"name": "Currency Actions",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21528101"
+	},
+	"item": [
+		{
+			"name": "Create Currency",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/currencies?symbol=BUSD&name=Binance USD&currentPrice=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"currencies"
+					],
+					"query": [
+						{
+							"key": "symbol",
+							"value": "BUSD"
+						},
+						{
+							"key": "name",
+							"value": "Binance USD"
+						},
+						{
+							"key": "currentPrice",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Currency",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/currencies/43?userId=24",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"currencies",
+						"43"
+					],
+					"query": [
+						{
+							"key": "userId",
+							"value": "24"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Currencies",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/currencies/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"currencies",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Currency Price",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "xxxx",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "x-app-id",
+						"value": "e478e6e5",
+						"type": "text"
+					},
+					{
+						"key": "x-app-key",
+						"value": "97cbbbe324acdb8b8ea96b2734fd2dbe",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/currencies/15?currentPrice=60.07",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"currencies",
+						"15"
+					],
+					"query": [
+						{
+							"key": "currentPrice",
+							"value": "60.07"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

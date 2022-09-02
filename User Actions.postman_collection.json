@@ -1,0 +1,74 @@
+{
+	"info": {
+		"_postman_id": "1ec7d7ec-9eb4-44e5-9bb4-8feb08027482",
+		"name": "User Actions",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21528101"
+	},
+	"item": [
+		{
+			"name": "Add User",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/users?role=USER&userName=Miriam_Bailey&firstName=Rosemary\n\n&lastName=Watts&email=rosemary.watts@gmail.com&phoneNumber=0568311313",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users"
+					],
+					"query": [
+						{
+							"key": "role",
+							"value": "USER"
+						},
+						{
+							"key": "userName",
+							"value": "Miriam_Bailey"
+						},
+						{
+							"key": "firstName",
+							"value": "Rosemary\n\n"
+						},
+						{
+							"key": "lastName",
+							"value": "Watts"
+						},
+						{
+							"key": "email",
+							"value": "rosemary.watts@gmail.com"
+						},
+						{
+							"key": "phoneNumber",
+							"value": "0568311313"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Users",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

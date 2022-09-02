@@ -27,6 +27,7 @@ public class CurrencyService {
         return repository.findAll();
     }
 
+    /* To add a currency you need to be admin */
     public void addCurrency(String symbol, String name, double currentPrice, int userId) throws UserUnauthorizedException, UnsupportedCurrencyCreationException {
         Optional<User> user = userRepository.findById(userId);
         if (user.isPresent() && user.get().getRole() == ADMIN && !unsupportedSet.contains(symbol)) {
@@ -39,6 +40,7 @@ public class CurrencyService {
         }
     }
 
+    /* To delete a currency you need to be admin */
     public void deleteCurrencyById(int id, int userId) throws UserUnauthorizedException {
         Optional<User> user = userRepository.findById(userId);
         if (user.isPresent() && user.get().getRole() == ADMIN) {
@@ -49,7 +51,7 @@ public class CurrencyService {
 
     }
 
-    /* TODO: debug the case when an exception is thrown */
+    /* To update a currency you need to be admin */
     public void updateCurrency(int id, double currentPrice, int userId) throws CurrencyNotFoundException, UserUnauthorizedException {
         Optional<User> user = userRepository.findById(userId);
         if (user.isPresent() && user.get().getRole() == ADMIN) {

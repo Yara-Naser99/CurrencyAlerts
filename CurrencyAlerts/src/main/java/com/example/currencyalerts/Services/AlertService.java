@@ -49,7 +49,6 @@ public class AlertService {
         repository.deleteById(id);
     }
 
-    /* TODO: refactor after deciding on whether we should create a new alert post updating a non existent alert */
     public void updateAlert(int id, Alert.Status status) {
         Optional<Alert> alert = repository.findById(id);
         if (alert.isPresent()) {
@@ -58,8 +57,8 @@ public class AlertService {
         }
     }
 
-    /* TODO: set to 30 seconds */
-    @Scheduled(fixedDelay = 1000)
+    /* Schedueled task runs each 30 seconds, acknowledgment is mimiced by a function that acknowledged alerts directly, it can be also randomized to be more real */
+    @Scheduled(fixedDelay = 3000)
     public void triggerAlert() {
         List<Alert> alerts = findAll();
 
@@ -72,7 +71,7 @@ public class AlertService {
                     }
                     if (alert.getStatus() == TRIGGERED) {
                         updateAlert(alert.getId(), ACKED);
-                        System.out.println("Acked!");/*TODO randomize acknowledgment*/
+                        System.out.println("Acked!");
                     }
                 }
             }
