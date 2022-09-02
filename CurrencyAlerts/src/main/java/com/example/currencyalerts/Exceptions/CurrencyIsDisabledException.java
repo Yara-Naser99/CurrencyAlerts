@@ -1,4 +1,4 @@
-package com.example.currencyalerts.Services;
+package com.example.currencyalerts.Exceptions;
 
 public class CurrencyIsDisabledException extends Exception {
 }

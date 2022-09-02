@@ -1,8 +1,8 @@
 package com.example.currencyalerts.Services;
 
-import com.example.currencyalerts.Models.Alert;
+import com.example.currencyalerts.Exceptions.*;
+import com.example.currencyalerts.Models.*;
 import com.example.currencyalerts.Models.Currency;
-import com.example.currencyalerts.Models.User;
 import com.example.currencyalerts.Repositories.AlertRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.*;
-import java.util.concurrent.ThreadLocalRandom;
 
 import static com.example.currencyalerts.Models.Alert.Status.*;
 
@@ -56,9 +55,12 @@ public class AlertService {
     }
 
     /* TODO: refactor after deciding on whether we should create a new alert post updating a non existent alert */
-    public void updateAlert(Alert.Status status, Alert alert) {
-        alert.setStatus(status);
-        repository.save(alert);
+    public void updateAlert(int id, Alert.Status status) {
+        Optional<Alert> alert = repository.findById(id);
+        if (alert.isPresent()) {
+            alert.get().setStatus(status);
+            repository.save(alert.get());
+        }
     }
 
     /* TODO: set to 30 seconds */
@@ -71,23 +73,13 @@ public class AlertService {
                 if (alert.getStatus() != CANCELLED) {
                     if (alert.getCurrency().getCurrentPrice() == alert.getTargetPrice() && alert.getStatus() == NEW) {
                         System.out.println("Hey " + alert.getUser().getUserName() + ", " + alert.getCurrency().getName() + " price just hit " + alert.getTargetPrice() + "!!!");
-                        updateAlert(TRIGGERED, alert);
+                        updateAlert(alert.getId(), TRIGGERED);
                     }
                     if (alert.getStatus() == TRIGGERED) {
-                        updateAlert(ACKED, alert);
-                        System.out.println("acked");/*TODO randomize acknowledgment*/
+                        updateAlert(alert.getId(), ACKED);
+                        System.out.println("Acked!");/*TODO randomize acknowledgment*/
                     }
                 }
-            }
-        }
-    }
-
-    public void ackAlert() {
-        List<Alert> alerts = findAll();
-        for (Alert alert : alerts) {
-            if (alert.getStatus() == TRIGGERED) {
-                alert.setStatus(ACKED);
-                System.out.println("User " + alert.getUser().getUserName() + " acknowledged the alert");
             }
         }
     }

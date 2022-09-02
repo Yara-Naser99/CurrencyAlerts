@@ -1,5 +1,6 @@
 package com.example.currencyalerts.Services;
 
+import com.example.currencyalerts.Exceptions.*;
 import com.example.currencyalerts.Models.Currency;
 import com.example.currencyalerts.Models.User;
 import com.example.currencyalerts.Repositories.CurrencyRepository;

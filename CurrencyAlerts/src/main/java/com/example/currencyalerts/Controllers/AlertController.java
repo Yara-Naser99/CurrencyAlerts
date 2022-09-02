@@ -2,9 +2,7 @@ package com.example.currencyalerts.Controllers;
 
 import com.example.currencyalerts.Models.*;
 import com.example.currencyalerts.Services.AlertService;
-import com.example.currencyalerts.Services.CurrencyIsDisabledException;
-import com.example.currencyalerts.Services.CurrencyNotFoundException;
-import com.example.currencyalerts.Services.UserNotFoundException;
+import com.example.currencyalerts.Exceptions.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,12 +34,11 @@ public class AlertController{
         service.deleteAlertById(id);
     }
 
-    /*
+
     @PutMapping("alerts/{id}")
-    public Alert updateAlert(@PathVariable (value="id") int id, @RequestBody Alert alert) throws Exception {
-        return service.updateAlert(alert);
+    public void updateAlert(@PathVariable (value="id") int id, @RequestParam (name = "status") Alert.Status status) throws Exception {
+        service.updateAlert(id, status);
     }
 
-     */
 
 }

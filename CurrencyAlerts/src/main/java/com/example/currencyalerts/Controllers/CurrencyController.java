@@ -2,8 +2,8 @@ package com.example.currencyalerts.Controllers;
 
 import com.example.currencyalerts.Models.Currency;
 import com.example.currencyalerts.Services.CurrencyService;
-import com.example.currencyalerts.Services.UnsupportedCurrencyCreationException;
-import com.example.currencyalerts.Services.UserUnauthorizedException;
+import com.example.currencyalerts.Exceptions.UnsupportedCurrencyCreationException;
+import com.example.currencyalerts.Exceptions.UserUnauthorizedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.*;

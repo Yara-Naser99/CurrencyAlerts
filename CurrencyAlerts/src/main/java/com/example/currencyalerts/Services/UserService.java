@@ -1,5 +1,6 @@
 package com.example.currencyalerts.Services;
 
+import com.example.currencyalerts.Exceptions.UserNotFoundException;
 import com.example.currencyalerts.Models.User;
 import com.example.currencyalerts.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

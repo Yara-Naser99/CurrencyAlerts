@@ -1,7 +1,7 @@
 package com.example.currencyalerts.Controllers;
+import com.example.currencyalerts.Exceptions.*;
 import com.example.currencyalerts.Models.Currency;
 import com.example.currencyalerts.Models.User;
-import com.example.currencyalerts.Services.*;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
