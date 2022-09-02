@@ -1,0 +1,2 @@
+This is a link to a google doc that has a picture of my ERD in it + a discussion of some design decisions I made
+https://docs.google.com/document/d/1tvBLHz9xOuiRyJ_jGCInnsYlBh_FzmFumtWfQJu2oCc/edit?usp=sharing
