@@ -8,6 +8,7 @@ import com.example.currencyalerts.Repositories.UserRepository;
 import com.example.currencyalerts.Services.CurrencyService;
 import org.junit.Ignore;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,27 +18,36 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
+
 @SpringBootTest
 class CurrencyAlertsApplicationTests {
 
-    @Autowired
-    private CurrencyService currencyService;
+    @InjectMocks
+    private CurrencyService currencyServiceMock;
 
     @Mock
-    private UserRepository userRepository;
+    private UserRepository userRepositoryMock;
 
     @Test
     void contextLoads() {
     }
 
-    @Ignore
     @Test
-    void normalUserCannotAddCurrency() throws UnsupportedCurrencyCreationException, UserUnauthorizedException {
+    void normalUserCannotAddCurrency() {
         User user = new User();
         user.setRole(User.Role.USER);
         user.setId(70);
-        when(userRepository.findById(70)).thenReturn(Optional.of(user));
-        assertThrows(UserUnauthorizedException.class, () -> currencyService.addCurrency("symbol", "name", 100, 70));//String symbol, String name, double currentPrice, int userId)
+        when(userRepositoryMock.findById(70)).thenReturn(Optional.of(user));
+        assertThrows(UserUnauthorizedException.class, () -> currencyServiceMock.addCurrency("symbol", "name", 100, 70));//String symbol, String name, double currentPrice, int userId)
+    }
+
+    @Test
+    void adminCannotAddForbiddenCurrency() {
+        User user = new User();
+        user.setRole(User.Role.ADMIN);
+        user.setId(70);
+        when(userRepositoryMock.findById(70)).thenReturn(Optional.of(user));
+        assertThrows(UnsupportedCurrencyCreationException.class, () -> currencyServiceMock.addCurrency("ETH", "name", 100, 70));//String symbol, String name, double currentPrice, int userId)
     }
 
 }
