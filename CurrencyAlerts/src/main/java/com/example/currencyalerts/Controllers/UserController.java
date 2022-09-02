@@ -22,7 +22,10 @@ public class UserController{
     }
 
     @PostMapping("users")
-    public User addUser(@RequestBody User user){
+    public User addUser(@RequestParam (name = "role") User.Role role, @RequestParam (name = "userName") String userName,
+                        @RequestParam (name = "firstName") String firstName, @RequestParam (name = "lastName") String lastName,
+                        @RequestParam (name = "email") String email, @RequestParam (name = "phoneNumber") String phoneNumber){
+        User user = new User(role, userName, firstName, lastName, email, phoneNumber);
         return service.addUser(user);
     }
 

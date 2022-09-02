@@ -1,8 +1,9 @@
 package com.example.currencyalerts.Controllers;
 
 import com.example.currencyalerts.Models.Currency;
-import com.example.currencyalerts.Services.CurrencyNotFoundException;
 import com.example.currencyalerts.Services.CurrencyService;
+import com.example.currencyalerts.Services.UnsupportedCurrencyCreationException;
+import com.example.currencyalerts.Services.UserUnauthorizedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.*;
@@ -23,18 +24,19 @@ public class CurrencyController{
     }
 
     @PostMapping("currencies")
-    public Currency addCurrency(@RequestBody Currency Currency){
-        return service.addCurrency(Currency);
+    public void addCurrency(@RequestParam(name = "symbol") String symbol, @RequestParam(name = "name") String name,
+                                @RequestParam(name = "currentPrice") double currentPrice, @RequestParam(name = "userId") int userId) throws UserUnauthorizedException, UnsupportedCurrencyCreationException {
+        service.addCurrency(symbol, name, currentPrice, userId);
     }
 
     @DeleteMapping("currencies/{id}")
-    public void deleteCurrency(@PathVariable (value="id") int id ){
-        service.deleteCurrencyById(id);
+    public void deleteCurrency(@PathVariable (value="id") int id, @RequestParam(name = "userId") int userId) throws UserUnauthorizedException {
+        service.deleteCurrencyById(id, userId);
     }
 
     @PutMapping("currencies/{id}")
-    public Currency updateCurrency(@PathVariable (value="id") int id,@RequestBody Currency Currency) throws Exception {
-        return service.updateCurrency(id,Currency);
+    public void updateCurrency(@PathVariable (value="id") int id, @RequestParam (name = "currentPrice") double currentPrice, @RequestParam(name = "userId") int userId) throws Exception {
+        service.updateCurrency(id, currentPrice, userId);
     }
 
 }

@@ -3,9 +3,11 @@ package com.example.currencyalerts.Models;
 import lombok.*;
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.*;
 
 @Getter
 @Setter
+@NoArgsConstructor
 @Entity
 @Table(name = "users")
 public class User implements Serializable {
@@ -37,6 +39,18 @@ public class User implements Serializable {
 
     @Column(name = "phone_number")
     private String phoneNumber;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<Alert> alerts = new HashSet<>();
+
+    public User(Role role, String userName, String firstName, String lastName, String email, String phoneNumber) {
+        this.role = role;
+        this.userName = userName;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+    }
 
     @Override
     public String toString() {

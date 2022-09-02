@@ -20,14 +20,14 @@ public class UserService {
 
         Optional<User> oUser = repository.findById(id);
 
-        if (oUser.isEmpty()) {
+        if (!oUser.isPresent()) {
             throw new UserNotFoundException();
         }
 
         return oUser.get();
     }
 
-    public User addUser( User user){
+    public User addUser(User user){
         return repository.save(user);
     }
 
