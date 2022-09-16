@@ -4,6 +4,8 @@ import com.example.currencyalerts.Exceptions.*;
 import com.example.currencyalerts.Models.*;
 import com.example.currencyalerts.Models.Currency;
 import com.example.currencyalerts.Repositories.AlertRepository;
+import com.example.currencyalerts.Repositories.CurrencyRepository;
+import com.example.currencyalerts.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -23,6 +25,12 @@ public class AlertService {
     private CurrencyService currencyService;
 
     @Autowired
+    private CurrencyRepository currencyRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
     private UserService userService;
     public List<Alert> findAll() {
         return repository.findAll();
@@ -32,16 +40,26 @@ public class AlertService {
         return repository.findById(id).get();
     }
 
-    public Alert addAlert(int userId, int currencyId, double targetPrice) throws UserNotFoundException, CurrencyNotFoundException, CurrencyIsDisabledException {
-        Currency currency = currencyService.findCurrencyById(currencyId);
-        if (currency.isEnabled()) {
-            User user = userService.findUserById(userId);
-            Alert alert = new Alert(user, currency, targetPrice, NEW, LocalDateTime.now());
-            currency.getAlerts().add(alert);
-            user.getAlerts().add(alert);
-            return repository.save(alert);
+    public Alert addAlert(int userId, int currencyId, double targetPrice) throws CurrencyIsDisabledException, UserNotFoundException, CurrencyNotFoundException {
+        Optional<Currency> retrievedCurrency = currencyRepository.findById(currencyId);
+        if (retrievedCurrency.isPresent()) {
+            Currency currency = retrievedCurrency.get();
+            if (currency.isEnabled()) {
+                Optional<User> oUser = userRepository.findById(userId);
+                if (oUser.isPresent()) {
+                    User user = oUser.get();
+                    Alert alert = new Alert(user, currency, targetPrice, NEW, LocalDateTime.now());
+                    currency.getAlerts().add(alert);
+                    user.getAlerts().add(alert);
+                    return repository.save(alert);
+                } else {
+                    throw new UserNotFoundException();
+                }
+            } else {
+                throw new CurrencyIsDisabledException();
+            }
         } else {
-            throw new CurrencyIsDisabledException();
+            throw new CurrencyNotFoundException();
         }
     }
 
@@ -57,16 +75,16 @@ public class AlertService {
         }
     }
 
+    /*TODO: clean acked alerts*/
     /* Schedueled task runs each 30 seconds, acknowledgment is mimiced by a function that acknowledged alerts directly, it can be also randomized to be more real */
     @Scheduled(fixedDelay = 3000)
     public void triggerAlert() {
         List<Alert> alerts = findAll();
-
         if (!alerts.isEmpty()) {
             for (Alert alert : alerts) {
                 if (alert.getStatus() != CANCELLED) {
                     if (alert.getCurrency().getCurrentPrice() == alert.getTargetPrice() && alert.getStatus() == NEW) {
-                        System.out.println("Hey " + alert.getUser().getUserName() + ", " + alert.getCurrency().getName() + " price just hit " + alert.getTargetPrice() + "!!!");
+                        System.out.println("Hey " + alert.getUser().getFirstName() + ", " + alert.getCurrency().getName() + " price just hit " + alert.getTargetPrice() + "!!!");
                         updateAlert(alert.getId(), TRIGGERED);
                     }
                     if (alert.getStatus() == TRIGGERED) {
@@ -77,5 +95,4 @@ public class AlertService {
             }
         }
     }
-
 }
