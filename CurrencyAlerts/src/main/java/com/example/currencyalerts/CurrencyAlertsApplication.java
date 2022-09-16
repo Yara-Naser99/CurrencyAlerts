@@ -9,7 +9,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @Configuration
 @EnableScheduling
 public class CurrencyAlertsApplication {
-
     public static void main(String[] args) {
         SpringApplication.run(CurrencyAlertsApplication.class, args);
     }

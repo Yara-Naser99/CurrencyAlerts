@@ -17,17 +17,6 @@ public class UserService {
         return repository.findAll();
     }
 
-    public User findUserById(int id) throws UserNotFoundException {
-
-        Optional<User> oUser = repository.findById(id);
-
-        if (!oUser.isPresent()) {
-            throw new UserNotFoundException();
-        }
-
-        return oUser.get();
-    }
-
     public User addUser(User user){
         return repository.save(user);
     }

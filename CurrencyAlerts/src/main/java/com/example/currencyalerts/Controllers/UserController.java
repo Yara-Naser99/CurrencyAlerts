@@ -16,11 +16,6 @@ public class UserController{
         return service.findAll();
     }
 
-    @GetMapping("/users/{id}")
-    public User findUserById( @PathVariable(value="id") int id) throws Exception {
-        return service.findUserById(id);
-    }
-
     @PostMapping("users")
     public User addUser(@RequestParam (name = "role") User.Role role, @RequestParam (name = "userName") String userName,
                         @RequestParam (name = "firstName") String firstName, @RequestParam (name = "lastName") String lastName,

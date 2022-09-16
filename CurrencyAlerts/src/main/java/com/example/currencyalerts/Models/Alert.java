@@ -24,17 +24,12 @@ public class Alert implements Serializable {
     private int id;
 
     @ManyToOne
-    @JoinTable(
-            name = "user_alert",
-            joinColumns = @JoinColumn(name = "alert_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    @JoinTable(name = "user_alert")
     private User user;
 
+
     @ManyToOne
-    @JoinTable(
-            name = "currency_alert",
-            joinColumns = @JoinColumn(name = "alert_id"),
-            inverseJoinColumns = @JoinColumn(name = "currency_id"))
+    @JoinTable(name="currency_alert")
     private Currency currency;
 
     @Column(name = "target_price")

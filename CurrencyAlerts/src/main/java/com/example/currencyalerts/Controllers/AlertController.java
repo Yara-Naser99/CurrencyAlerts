@@ -25,7 +25,7 @@ public class AlertController{
     }
 
     @PostMapping("alerts")
-    public Alert addAlert(@RequestParam(name = "userId") int userId, @RequestParam(name = "currencyId") int currencyId, @RequestParam(name = "targetPrice") double targetPrice) throws UserNotFoundException, CurrencyNotFoundException, CurrencyIsDisabledException {
+    public Alert addAlert(@RequestParam(name = "userId") int userId, @RequestParam(name = "currencyId") int currencyId, @RequestParam(name = "targetPrice") double targetPrice) throws UserNotFoundException, CurrencyIsDisabledException, CurrencyNotFoundException {
         return service.addAlert(userId, currencyId, targetPrice);
     }
 
@@ -36,7 +36,7 @@ public class AlertController{
 
 
     @PutMapping("alerts/{id}")
-    public void updateAlert(@PathVariable (value="id") int id, @RequestParam (name = "status") Alert.Status status) throws Exception {
+    public void updateAlert(@PathVariable (value="id") int id, @RequestParam (name = "status") Alert.Status status) {
         service.updateAlert(id, status);
     }
 

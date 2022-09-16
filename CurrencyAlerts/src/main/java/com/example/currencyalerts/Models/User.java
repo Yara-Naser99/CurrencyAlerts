@@ -41,7 +41,7 @@ public class User implements Serializable {
     private String phoneNumber;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private Set<Alert> alerts = new HashSet<>();
+    private Set<Alert> alerts = new HashSet<>(); // where to instantiate?
 
     public User(Role role, String userName, String firstName, String lastName, String email, String phoneNumber) {
         this.role = role;
