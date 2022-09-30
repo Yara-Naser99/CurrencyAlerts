@@ -31,7 +31,7 @@ public class CurrencyService {
     public void addCurrency(String symbol, String name, double currentPrice, int userId) throws UserUnauthorizedException, UnsupportedCurrencyCreationException {
         Optional<User> user = userRepository.findById(userId);
         if (user.isPresent() && user.get().getRole() == ADMIN && !unsupportedSet.contains(symbol)) {
-            Currency currency = new Currency(symbol, name, currentPrice, true, LocalDateTime.now());
+            Currency currency = new Currency(symbol, name, currentPrice, true);
             repository.save(currency);
         } else if (user.isPresent() && user.get().getRole() != ADMIN) {
             throw new UserUnauthorizedException();
