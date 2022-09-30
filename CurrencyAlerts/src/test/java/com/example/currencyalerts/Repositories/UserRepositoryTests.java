@@ -1,4 +1,4 @@
-package com.example.currencyalerts;
+package com.example.currencyalerts.Repositories;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import com.example.currencyalerts.Models.User;
@@ -9,7 +9,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import java.util.*;
 
-@DirtiesContext
 @SpringBootTest
 class UserRepositoryTests {
 

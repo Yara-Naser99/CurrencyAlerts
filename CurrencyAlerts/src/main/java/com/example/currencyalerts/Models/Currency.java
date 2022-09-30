@@ -36,12 +36,12 @@ public class Currency implements Serializable {
     @OneToMany(mappedBy = "currency", cascade = CascadeType.ALL)
     private Set<Alert> alerts = new HashSet<>();
 
-    public Currency(String symbol, String name, double currentPrice, boolean enabled, LocalDateTime createdTime) {
+    public Currency(String symbol, String name, double currentPrice, boolean enabled) {
         this.symbol = symbol;
         this.name = name;
         this.currentPrice = currentPrice;
         this.enabled = enabled;
-        this.createdTime = createdTime;
+        this.createdTime = LocalDateTime.now();
     }
 
     @Override

@@ -1,16 +1,13 @@
-package com.example.currencyalerts;
+package com.example.currencyalerts.Repositories;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import com.example.currencyalerts.Models.Currency;
-import com.example.currencyalerts.Repositories.CurrencyRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.DirtiesContext;
 import java.time.LocalDateTime;
 import java.util.*;
 
-@DirtiesContext
 @SpringBootTest
 class CurrencyRepositoryTests {
 

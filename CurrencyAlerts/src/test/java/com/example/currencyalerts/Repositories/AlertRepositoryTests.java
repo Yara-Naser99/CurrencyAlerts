@@ -1,4 +1,4 @@
-package com.example.currencyalerts;
+package com.example.currencyalerts.Repositories;
 
 import static com.example.currencyalerts.Models.Alert.Status.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -13,7 +13,6 @@ import org.springframework.test.annotation.DirtiesContext;
 import java.time.LocalDateTime;
 import java.util.*;
 
-@DirtiesContext
 @SpringBootTest
 class AlertRepositoryTests {
 
