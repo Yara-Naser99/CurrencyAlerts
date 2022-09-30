@@ -27,7 +27,7 @@ import static org.mockito.Mockito.when;
 
 
 @SpringBootTest
-class CurrencyAlertsApplicationTests {
+class ExceptionsTests {
 
     @InjectMocks
     private AlertService alertServiceMock;
